@@ -50,3 +50,8 @@
 - [x] 7.2 Add form and person workflow tests using mocked service responses for validation, search/filter, create, edit, duplicate email, delete confirmation, loading, empty, and error states; verify the focused test suite passes.
 - [x] 7.3 Run local Supabase migration, type generation, lint, TypeScript build, and test commands from a clean checkout; verify all commands pass and generated types match the applied schema.
 - [x] 7.4 Document the local and linked Supabase workflow, environment variables, migration filename decision, fallback limitations, and remote deployment guardrails; verify the README lets a new developer reproduce the local setup without secrets.
+
+## 8. Seed local y sincronizacion remota
+
+- [x] 8.1 Add 30 deterministic synthetic personnel records to `supabase/seed.sql`; verify `npx supabase db reset` loads the records with valid statuses and the local directory can display them.
+- [x] 8.2 Link the approved Supabase project and push only reviewed migrations/RLS; verify the remote schema matches the local migration set, generated linked types compile, and no local seed rows are pushed automatically.

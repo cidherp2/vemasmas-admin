@@ -200,6 +200,14 @@ npx supabase gen types typescript --linked > src/types/database.types.ts
 
 The command-generated timestamped migration name is normally preferred by Supabase. When the required deliverable name is `0000_initial_schema.sql`, the initial migration file is kept under that name before applying it, provided the CLI version accepts the filename ordering. The implementation task must verify the generated migration list and use the actual filename consistently.
 
+### 9.1. Local seed and remote schema boundary
+
+Keep `supabase/seed.sql` as a local-only, deterministic dataset of 30 synthetic `persons` records. Fixed UUIDs, unique demo emails, valid ten-digit phones, varied roles, and both allowed statuses make `supabase db reset` reproducible and useful for manually exercising search, filters, detail, edit, and delete flows. The seed uses an email conflict update so rerunning it is safe, but it is not production data.
+
+The remote delivery boundary is schema-only. Link the approved project with `supabase link --project-ref "$SUPABASE_PROJECT_REF"`, review migration status and remote drift, then run `supabase db push`. `db push` applies migrations and RLS policies; it does not apply `seed.sql`. Remote sample data, if ever desired, requires a separately approved data import and is outside this scope.
+
+Alternative considered: inserting sample rows through a migration. Rejected because demo data would become production schema history and would be difficult to remove safely.
+
 ### 9. Generated database type contract
 
 `src/types/database.types.ts` is generated and must not be hand-edited. The relevant generated shape is expected to be equivalent to:

@@ -49,6 +49,8 @@ npx supabase status
 
 La migracion crea `public.persons` con UUID, timestamp de alta, nombre, correo unico, telefono de diez digitos, rol opcional y estado `active`/`inactive`. Tambien habilita RLS y permite leer, crear, actualizar y borrar solo a usuarios con el rol Supabase `authenticated`.
 
+`supabase/seed.sql` carga 30 personas sinteticas, con roles variados y estados activos/inactivos. El seed se ejecuta con `supabase db reset` y solo sirve para desarrollo local; no se aplica con `supabase db push`.
+
 `src/types/database.types.ts` es un artefacto generado. No lo edites manualmente; regeneralo despues de cada cambio de esquema.
 
 ## Supabase remoto
@@ -58,9 +60,12 @@ Configura primero las variables en `.env.local` y no uses una clave `service_rol
 ```bash
 export SUPABASE_PROJECT_REF="tu-project-ref"
 npx supabase link --project-ref "$SUPABASE_PROJECT_REF"
+npx supabase migration list
 npx supabase db push
 npx supabase gen types typescript --linked > src/types/database.types.ts
 ```
+
+Este flujo sincroniza el esquema y las politicas RLS revisadas. No envia los registros de `seed.sql` al proyecto remoto. La instancia remota requiere que la CLI tenga una sesion autenticada.
 
 El primer release permite que cualquier usuario autenticado gestione todos los registros. No hay roles de RR. HH. ni aislamiento por organizacion; esa ampliacion requiere nuevas politicas RLS y una especificacion separada.
 
