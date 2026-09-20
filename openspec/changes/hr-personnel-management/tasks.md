@@ -10,9 +10,9 @@
 ## 2. Supabase schema and generated contract
 
 - [x] 2.1 Initialize the Supabase CLI directory with `npx supabase init` and create the initial migration from `npx supabase migration new create_persons_table`; verify the migration is tracked under `supabase/migrations`.
-- [ ] 2.2 Implement the `0000_initial_schema.sql` migration content from `design.md`, including the `persons` table, phone and status checks, indexes, RLS, and authenticated CRUD policies; verify `npx supabase db reset` applies it successfully to a clean local instance.
-- [ ] 2.3 Generate `src/types/database.types.ts` with `npx supabase gen types typescript --local`; verify the generated `Database` type includes the `persons` Row, Insert, and Update contracts and that no hand-written replacement is used.
-- [ ] 2.4 Add a local database smoke test for authenticated CRUD and unauthenticated denial; verify RLS prevents reads and mutations without an authenticated Supabase session.
+- [x] 2.2 Implement the `0000_initial_schema.sql` migration content from `design.md`, including the `persons` table, phone and status checks, indexes, RLS, and authenticated CRUD policies; verify `npx supabase db reset` applies it successfully to a clean local instance.
+- [x] 2.3 Generate `src/types/database.types.ts` with `npx supabase gen types typescript --local`; verify the generated `Database` type includes the `persons` Row, Insert, and Update contracts and that no hand-written replacement is used.
+- [x] 2.4 Add a local database smoke test for authenticated CRUD and unauthenticated denial; verify RLS prevents reads and mutations without an authenticated Supabase session.
 
 ## 3. Authentication and routing
 
@@ -48,5 +48,5 @@
 
 - [x] 7.1 Add component and route tests for login, protected navigation, fallback gating, shell responsiveness, and theme behavior; verify tests query accessible roles, labels, and text.
 - [x] 7.2 Add form and person workflow tests using mocked service responses for validation, search/filter, create, edit, duplicate email, delete confirmation, loading, empty, and error states; verify the focused test suite passes.
-- [ ] 7.3 Run local Supabase migration, type generation, lint, TypeScript build, and test commands from a clean checkout; verify all commands pass and generated types match the applied schema.
+- [x] 7.3 Run local Supabase migration, type generation, lint, TypeScript build, and test commands from a clean checkout; verify all commands pass and generated types match the applied schema.
 - [x] 7.4 Document the local and linked Supabase workflow, environment variables, migration filename decision, fallback limitations, and remote deployment guardrails; verify the README lets a new developer reproduce the local setup without secrets.
