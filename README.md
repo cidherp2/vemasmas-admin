@@ -2,6 +2,25 @@
 
 Panel web para administrar personas y equipos. La interfaz usa React, TypeScript, Tailwind CSS, primitivas Shadcn/Radix y React Router. Supabase proporciona autenticacion y PostgreSQL cuando se configuran sus variables publicas.
 
+## Enlaces
+
+- Repositorio: https://github.com/cidherp2/vemasmas-admin
+- Demo: https://vemasmas.netlify.app
+
+## Inicio rapido
+
+```bash
+git clone https://github.com/cidherp2/vemasmas-admin.git
+cd vemasmas-admin
+npm ci
+cp .env.example .env.local
+npm run dev
+```
+
+Abre `http://localhost:5173`. Para usar la instancia remota de Supabase, completa `.env.local` con `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` y, opcionalmente, `VITE_SUPABASE_AUTH_REDIRECT_URL`. No subas `.env.local` al repositorio.
+
+Este repositorio mantiene un unico README en la raiz porque contiene una sola aplicacion. Si en el futuro se agregan paquetes independientes, cada paquete puede tener su propio `README.md` local y este documento seguira siendo la guia general.
+
 ## Requisitos
 
 - Node.js 20 o superior.
