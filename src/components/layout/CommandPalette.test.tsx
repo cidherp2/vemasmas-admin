@@ -13,7 +13,12 @@ function LocationText(): React.ReactElement {
 describe("CommandPalette", () => {
   it("navigates to a command and closes after selection", async () => {
     const user = userEvent.setup();
-    render(<MemoryRouter><CommandPalette open onClose={() => undefined} /><LocationText /></MemoryRouter>);
+    render(
+      <MemoryRouter>
+        <CommandPalette open onClose={() => undefined} />
+        <LocationText />
+      </MemoryRouter>,
+    );
 
     await user.click(screen.getByRole("button", { name: /abrir personas/i }));
     expect(screen.getByTestId("location")).toHaveTextContent("/persons");

@@ -1,75 +1,92 @@
-# React + TypeScript + Vite
+# vemasmas Admin
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Panel web para administrar personas y equipos. La interfaz usa React, TypeScript, Tailwind CSS, primitivas Shadcn/Radix y React Router. Supabase proporciona autenticacion y PostgreSQL cuando se configuran sus variables publicas.
 
-Currently, two official plugins are available:
+## Requisitos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Node.js 20 o superior.
+- Docker Desktop en ejecucion para Supabase local.
+- npm.
 
-## React Compiler
+## Desarrollo frontend
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+cp .env.example .env.local
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Abre la URL que indique Vite. Si `.env.local` no contiene `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`, el build de desarrollo habilita un modo local simulado:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- El login acepta cualquier correo y una contrasena de seis caracteres o mas.
+- La sesion y los registros de personas se guardan solo en `localStorage` del navegador.
+- El modo aparece etiquetado como `Modo local simulado`.
+- Nunca debe usarse como autenticacion de produccion.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+En un build de produccion sin configuracion de Supabase, el login falla de forma cerrada y no concede acceso simulado.
 
+## Supabase local
+
+El repositorio ya contiene `supabase/config.toml`, `supabase/seed.sql` y la migracion canonica `supabase/migrations/0000_initial_schema.sql`.
+
+Para inicializar un proyecto desde cero:
+
+```bash
+npx supabase init
+npx supabase migration new create_persons_table
+```
+
+El comando de migracion crea un archivo con prefijo timestamp. Para este proyecto, conserva una unica migracion inicial con el nombre `0000_initial_schema.sql` y elimina el archivo timestamped vacio antes de aplicar cambios.
+
+Con Docker Desktop ejecutandose:
+
+```bash
+npx supabase start
+npx supabase db reset
+npx supabase gen types typescript --local > src/types/database.types.ts
+npx supabase status
+```
+
+La migracion crea `public.persons` con UUID, timestamp de alta, nombre, correo unico, telefono de diez digitos, rol opcional y estado `active`/`inactive`. Tambien habilita RLS y permite leer, crear, actualizar y borrar solo a usuarios con el rol Supabase `authenticated`.
+
+`src/types/database.types.ts` es un artefacto generado. No lo edites manualmente; regeneralo despues de cada cambio de esquema.
+
+## Supabase remoto
+
+Configura primero las variables en `.env.local` y no uses una clave `service_role` en el navegador. Despues de validar la migracion local:
+
+```bash
+export SUPABASE_PROJECT_REF="tu-project-ref"
+npx supabase link --project-ref "$SUPABASE_PROJECT_REF"
+npx supabase db push
+npx supabase gen types typescript --linked > src/types/database.types.ts
+```
+
+El primer release permite que cualquier usuario autenticado gestione todos los registros. No hay roles de RR. HH. ni aislamiento por organizacion; esa ampliacion requiere nuevas politicas RLS y una especificacion separada.
+
+## Comandos de calidad
+
+```bash
+npm run lint
+npm test
+npm run build
+```
+
+## Estructura principal
+
+```text
+supabase/
+  config.toml
+  migrations/0000_initial_schema.sql
+src/
+  components/layout/       # shell, sidebar, header y command palette
+  components/persons/      # tabla, formularios, detalle y confirmaciones
+  components/providers/    # auth y tema
+  components/ui/           # primitivas Shadcn/Radix locales
+  hooks/                   # auth, tema y consultas de personas
+  lib/                     # validacion, errores y utilidades
+  pages/                   # login, dashboard, personas y detalle
+  routes/                  # rutas privadas y recuperacion de errores
+  services/                # cliente Supabase y operaciones de dominio
+  types/                   # tipos de base de datos y personas
 ```

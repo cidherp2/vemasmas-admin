@@ -12,5 +12,27 @@ import { ProtectedRoute } from "@/routes/ProtectedRoute";
 import { RouteErrorFallback } from "@/routes/RouteErrorFallback";
 
 export function AppRoutes(): React.ReactElement {
-  return <BrowserRouter><Routes><Route path="/login" element={<LoginPage />} /><Route element={<ProtectedRoute />}><Route element={<ErrorBoundary FallbackComponent={RouteErrorFallback}><AdminShell /></ErrorBoundary>}><Route index element={<Navigate to="/dashboard" replace />} /><Route path="dashboard" element={<DashboardPage />} /><Route path="persons" element={<PersonsPage />} /><Route path="persons/:personId" element={<PersonDetailPage />} /><Route path="settings" element={<SettingsPage />} /><Route path="*" element={<NotFoundPage />} /></Route></Route></Routes></BrowserRouter>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route
+            element={
+              <ErrorBoundary FallbackComponent={RouteErrorFallback}>
+                <AdminShell />
+              </ErrorBoundary>
+            }
+          >
+            <Route index element={<Navigate to="/dashboard" replace />} />
+            <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="persons" element={<PersonsPage />} />
+            <Route path="persons/:personId" element={<PersonDetailPage />} />
+            <Route path="settings" element={<SettingsPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }

@@ -16,8 +16,16 @@ describe("personSchema", () => {
   });
 
   it("rejects missing fields and malformed contact data", () => {
-    const result = personSchema.safeParse({ ...validPerson, name: "", email: "invalid", phone: "123" });
+    const result = personSchema.safeParse({
+      ...validPerson,
+      name: "",
+      email: "invalid",
+      phone: "123",
+    });
     expect(result.success).toBe(false);
-    if (!result.success) expect(result.error.issues.map((issue) => issue.path[0])).toEqual(expect.arrayContaining(["name", "email", "phone"]));
+    if (!result.success)
+      expect(result.error.issues.map((issue) => issue.path[0])).toEqual(
+        expect.arrayContaining(["name", "email", "phone"]),
+      );
   });
 });

@@ -1,8 +1,19 @@
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { createPerson, deletePerson, listPersons, updatePerson } from "@/services/persons.service";
+import {
+  createPerson,
+  deletePerson,
+  listPersons,
+  updatePerson,
+} from "@/services/persons.service";
 
-const input = { name: "Ana Martínez", email: "ana@empresa.com", phone: "5512345678", role: null, status: "active" as const };
+const input = {
+  name: "Ana Martínez",
+  email: "ana@empresa.com",
+  phone: "5512345678",
+  role: null,
+  status: "active" as const,
+};
 
 describe("persons.service local fallback", () => {
   beforeEach(() => window.localStorage.clear());
@@ -10,9 +21,15 @@ describe("persons.service local fallback", () => {
   it("supports create, duplicate protection, update and delete", async () => {
     const created = await createPerson(input);
     expect(created.email).toBe(input.email);
-    await expect(createPerson(input)).rejects.toMatchObject({ code: "DUPLICATE" });
+    await expect(createPerson(input)).rejects.toMatchObject({
+      code: "DUPLICATE",
+    });
 
-    const updated = await updatePerson(created.id, { ...input, name: "Ana Actualizada", status: "inactive" });
+    const updated = await updatePerson(created.id, {
+      ...input,
+      name: "Ana Actualizada",
+      status: "inactive",
+    });
     expect(updated.name).toBe("Ana Actualizada");
     expect(updated.status).toBe("inactive");
 

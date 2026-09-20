@@ -12,7 +12,9 @@ describe("PersonForm", () => {
 
     await user.click(screen.getByRole("button", { name: "Guardar persona" }));
 
-    expect(await screen.findByText("El nombre es obligatorio.")).toBeInTheDocument();
+    expect(
+      await screen.findByText("El nombre es obligatorio."),
+    ).toBeInTheDocument();
     expect(screen.getByText("Introduce un correo válido.")).toBeInTheDocument();
     expect(onSubmit).not.toHaveBeenCalled();
   });
@@ -23,10 +25,19 @@ describe("PersonForm", () => {
     render(<PersonForm onSubmit={onSubmit} />);
 
     await user.type(screen.getByLabelText("Nombre completo"), "Ana Martínez");
-    await user.type(screen.getByLabelText("Correo electrónico"), "ANA@EMPRESA.COM");
+    await user.type(
+      screen.getByLabelText("Correo electrónico"),
+      "ANA@EMPRESA.COM",
+    );
     await user.type(screen.getByLabelText("Teléfono"), "5512345678");
     await user.click(screen.getByRole("button", { name: "Guardar persona" }));
 
-    expect(onSubmit).toHaveBeenCalledWith({ name: "Ana Martínez", email: "ANA@EMPRESA.COM", phone: "5512345678", role: null, status: "active" });
+    expect(onSubmit).toHaveBeenCalledWith({
+      name: "Ana Martínez",
+      email: "ANA@EMPRESA.COM",
+      phone: "5512345678",
+      role: null,
+      status: "active",
+    });
   });
 });

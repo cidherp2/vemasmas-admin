@@ -49,4 +49,4 @@
 - [x] 7.1 Add component and route tests for login, protected navigation, fallback gating, shell responsiveness, and theme behavior; verify tests query accessible roles, labels, and text.
 - [x] 7.2 Add form and person workflow tests using mocked service responses for validation, search/filter, create, edit, duplicate email, delete confirmation, loading, empty, and error states; verify the focused test suite passes.
 - [ ] 7.3 Run local Supabase migration, type generation, lint, TypeScript build, and test commands from a clean checkout; verify all commands pass and generated types match the applied schema.
-- [ ] 7.4 Document the local and linked Supabase workflow, environment variables, migration filename decision, fallback limitations, and remote deployment guardrails; verify the README lets a new developer reproduce the local setup without secrets.
+- [x] 7.4 Document the local and linked Supabase workflow, environment variables, migration filename decision, fallback limitations, and remote deployment guardrails; verify the README lets a new developer reproduce the local setup without secrets.

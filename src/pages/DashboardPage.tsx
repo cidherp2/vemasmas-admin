@@ -1,23 +1,27 @@
-import { ArrowUpRight, BriefcaseBusiness, Clock3, UserCheck, Users } from "lucide-react";
+import {
+  ArrowUpRight,
+  BriefcaseBusiness,
+  Clock3,
+  UserCheck,
+  Users,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePersons } from "@/hooks/usePersons";
 import { getErrorMessage } from "@/lib/errors";
 
 export function DashboardPage(): React.ReactElement {
   const { data: persons, isLoading, isError, error, refetch } = usePersons();
-  const activeCount = persons?.filter((person) => person.status === "active").length ?? 0;
-  const roleCount = new Set(persons?.map((person) => person.role).filter(Boolean)).size;
+  const activeCount =
+    persons?.filter((person) => person.status === "active").length ?? 0;
+  const roleCount = new Set(
+    persons?.map((person) => person.role).filter(Boolean),
+  ).size;
   const latestPersonDate = persons?.[0]?.created_at;
   const latestDate = latestPersonDate
     ? new Date(latestPersonDate).toLocaleDateString("es-ES", {
@@ -37,7 +41,8 @@ export function DashboardPage(): React.ReactElement {
             Buenos días, equipo.
           </h1>
           <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-            Una lectura rápida de cómo está creciendo y moviéndose tu organización.
+            Una lectura rápida de cómo está creciendo y moviéndose tu
+            organización.
           </p>
         </div>
       </div>
@@ -61,10 +66,34 @@ export function DashboardPage(): React.ReactElement {
           ))
         ) : (
           <>
-            <StatCard label="Personas registradas" value={persons?.length ?? 0} detail="En tu directorio" icon={Users} tone="green" />
-            <StatCard label="Perfiles activos" value={activeCount} detail="Con acceso vigente" icon={UserCheck} tone="yellow" />
-            <StatCard label="Roles representados" value={roleCount} detail="Diversidad de funciones" icon={BriefcaseBusiness} tone="blue" />
-            <StatCard label="Última actualización" value={latestDate} detail="Datos sincronizados" icon={Clock3} tone="slate" />
+            <StatCard
+              label="Personas registradas"
+              value={persons?.length ?? 0}
+              detail="En tu directorio"
+              icon={Users}
+              tone="green"
+            />
+            <StatCard
+              label="Perfiles activos"
+              value={activeCount}
+              detail="Con acceso vigente"
+              icon={UserCheck}
+              tone="yellow"
+            />
+            <StatCard
+              label="Roles representados"
+              value={roleCount}
+              detail="Diversidad de funciones"
+              icon={BriefcaseBusiness}
+              tone="blue"
+            />
+            <StatCard
+              label="Última actualización"
+              value={latestDate}
+              detail="Datos sincronizados"
+              icon={Clock3}
+              tone="slate"
+            />
           </>
         )}
       </div>
@@ -78,7 +107,10 @@ export function DashboardPage(): React.ReactElement {
                 Las personas incorporadas recientemente.
               </p>
             </div>
-            <Link className="focus-ring inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline" to="/persons">
+            <Link
+              className="focus-ring inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
+              to="/persons"
+            >
               Ver directorio <ArrowUpRight className="size-3.5" />
             </Link>
           </CardHeader>
@@ -86,15 +118,27 @@ export function DashboardPage(): React.ReactElement {
             {persons && persons.length > 0 ? (
               <div className="divide-y">
                 {persons.slice(0, 5).map((person) => (
-                  <Link key={person.id} to={`/persons/${person.id}`} className="focus-ring flex items-center gap-3 px-5 py-4 hover:bg-muted/60">
+                  <Link
+                    key={person.id}
+                    to={`/persons/${person.id}`}
+                    className="focus-ring flex items-center gap-3 px-5 py-4 hover:bg-muted/60"
+                  >
                     <span className="flex size-9 items-center justify-center rounded-full bg-secondary text-xs font-bold text-secondary-foreground">
                       {person.name.slice(0, 1).toUpperCase()}
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-sm font-semibold">{person.name}</span>
-                      <span className="block truncate text-xs text-muted-foreground">{person.role || "Sin rol asignado"}</span>
+                      <span className="block truncate text-sm font-semibold">
+                        {person.name}
+                      </span>
+                      <span className="block truncate text-xs text-muted-foreground">
+                        {person.role || "Sin rol asignado"}
+                      </span>
                     </span>
-                    <Badge variant={person.status === "active" ? "active" : "inactive"}>
+                    <Badge
+                      variant={
+                        person.status === "active" ? "active" : "inactive"
+                      }
+                    >
                       {person.status === "active" ? "Activo" : "Inactivo"}
                     </Badge>
                   </Link>
@@ -111,13 +155,25 @@ export function DashboardPage(): React.ReactElement {
         <Card className="relative overflow-hidden border-0 bg-[var(--sidebar)] text-white">
           <div className="absolute -right-16 -top-16 size-48 rounded-full border-[24px] border-[#3e9d79]/25" />
           <CardHeader className="relative">
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#9bd9c0]">Siguiente paso</p>
-            <CardTitle className="mt-2 text-2xl text-white">Conoce a tu equipo con más contexto.</CardTitle>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#9bd9c0]">
+              Siguiente paso
+            </p>
+            <CardTitle className="mt-2 text-2xl text-white">
+              Conoce a tu equipo con más contexto.
+            </CardTitle>
           </CardHeader>
           <CardContent className="relative">
-            <p className="text-sm leading-6 text-[#b6d0c8]">Añade roles y estados para convertir datos sueltos en una lectura útil.</p>
-            <Button asChild className="mt-6 bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[#e5aa3d]">
-              <Link to="/persons">Abrir directorio <ArrowUpRight className="size-4" /></Link>
+            <p className="text-sm leading-6 text-[#b6d0c8]">
+              Añade roles y estados para convertir datos sueltos en una lectura
+              útil.
+            </p>
+            <Button
+              asChild
+              className="mt-6 bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[#e5aa3d]"
+            >
+              <Link to="/persons">
+                Abrir directorio <ArrowUpRight className="size-4" />
+              </Link>
             </Button>
           </CardContent>
         </Card>
@@ -151,10 +207,16 @@ function StatCard({
       <CardContent className="p-5">
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-xs font-semibold text-muted-foreground">{label}</p>
-            <p className="mt-3 font-display text-3xl font-semibold tracking-[-0.04em]">{value}</p>
+            <p className="text-xs font-semibold text-muted-foreground">
+              {label}
+            </p>
+            <p className="mt-3 font-display text-3xl font-semibold tracking-[-0.04em]">
+              {value}
+            </p>
           </div>
-          <span className={`flex size-10 items-center justify-center rounded-xl ${toneClasses[tone]}`}>
+          <span
+            className={`flex size-10 items-center justify-center rounded-xl ${toneClasses[tone]}`}
+          >
             <Icon className="size-4" />
           </span>
         </div>
