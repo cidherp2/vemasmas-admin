@@ -55,3 +55,8 @@
 
 - [x] 8.1 Add 30 deterministic synthetic personnel records to `supabase/seed.sql`; verify `npx supabase db reset` loads the records with valid statuses and the local directory can display them.
 - [x] 8.2 Link the approved Supabase project and push only reviewed migrations/RLS; verify the remote schema matches the local migration set, generated linked types compile, and no local seed rows are pushed automatically.
+
+## 9. Registro publico para demo
+
+- [x] 9.1 Add Supabase Auth registration service, context action, validation schema, `/register` page, protected redirect behavior, and Login link; verify local fallback and configured Auth registration handle both immediate sessions and email-confirmation responses.
+- [x] 9.2 Add registration tests and document local/remote email-confirmation behavior; verify invalid, duplicate, and successful registration states pass without exposing private data to unauthenticated users.

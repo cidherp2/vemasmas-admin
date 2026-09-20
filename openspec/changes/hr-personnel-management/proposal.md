@@ -12,6 +12,7 @@ The repository is currently an unmodified React/Vite starter and has no authenti
 - Define accessible loading, validation, network, HTTP, authentication, and RLS error states with inline messages, skeletons, and toast notifications.
 - Establish the Supabase CLI workflow, initial `persons` schema, RLS policy model, generated TypeScript database contract, and frontend service boundaries.
 - Add a deterministic local seed with synthetic personnel records and document schema-only synchronization to the approved remote Supabase project.
+- Add public demo account registration for local and remote Supabase Auth environments.
 - Add the dependency and folder structure required for React Router, Tailwind CSS, Shadcn UI, Lucide icons, React Hook Form, and schema validation.
 
 ## Capabilities

@@ -53,6 +53,14 @@ The fallback is selected only when both public Supabase values are absent and `i
 
 Alternative considered: always showing simulated login when Supabase fails. Rejected because a backend outage or a malformed production configuration must not silently bypass authentication.
 
+### 3.1. Public demo registration
+
+Expose registration in both local and remote demo builds through Supabase Auth. The form validates email, a six-character minimum password, and confirmation before calling `auth.signUp`. If Supabase returns a session, the new user enters the protected application immediately; if it returns a user without a session, the UI explains that email confirmation is required and keeps private routes protected.
+
+When the public client is intentionally unconfigured in development, registration uses the same local simulated session boundary as login. Production builds fail closed and never create simulated accounts. The remote demo must keep email signup enabled in Supabase Auth; email confirmation remains controlled by the remote project's Auth settings.
+
+This is explicitly a demo capability. Because the current RLS model grants every authenticated user access to all `persons` records, public registration is appropriate only for the isolated demo environment. A production deployment requires ownership or role-based RLS before enabling it.
+
 ### 4. Typed Supabase service layer
 
 Keep UI components free of database queries. The service boundary is:

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 import { AuthContext, type AuthUser } from '@/context/auth-context'
 import { AppError } from '@/lib/errors'
-import { getCurrentSession, signInWithPassword, signOut, subscribeToAuthChanges } from '@/services/auth.service'
+import { getCurrentSession, signInWithPassword, signUpWithPassword, signOut, subscribeToAuthChanges } from '@/services/auth.service'
 import { hasSupabaseConfig } from '@/services/supabase'
 
 const fallbackStorageKey = 'vemasmas-admin-dev-session'
@@ -87,5 +87,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }): React
     setStatus('unauthenticated')
   }
 
-  return <AuthContext.Provider value={{ status, user, isDevelopmentFallback, signIn: handleSignIn, signOut: handleSignOut }}>{children}</AuthContext.Provider>
+  const handleSignUp = async (email: string, password: string): Promise<{ requiresEmailConfirmation: boolean }> => {
+    if (isDevelopmentFallback) {
+      await handleSignIn(email, password)
+      return { requiresEmailConfirmation: false }
+    }
+    const { user: nextUser, session } = await signUpWithPassword(email, password)
+    if (nextUser && session) {
+      setUser(toAuthUser(nextUser))
+      setStatus('authenticated')
+    }
+    return { requiresEmailConfirmation: Boolean(nextUser && !session) }
+  }
+
+  return <AuthContext.Provider value={{ status, user, isDevelopmentFallback, signIn: handleSignIn, signUp: handleSignUp, signOut: handleSignOut }}>{children}</AuthContext.Provider>
 }

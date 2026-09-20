@@ -2,7 +2,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, KeyRound, ShieldCheck, Sparkles } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -184,6 +184,12 @@ export function LoginPage(): React.ReactElement {
           <p className="mt-8 text-center text-xs leading-5 text-muted-foreground">
             Al entrar confirmas que tienes autorización para gestionar la
             información de tu organización.
+          </p>
+          <p className="mt-4 text-center text-sm text-muted-foreground">
+            ¿No tienes cuenta?{" "}
+            <Link className="font-semibold text-primary hover:underline" to="/register">
+              Crear cuenta de demo
+            </Link>
           </p>
         </div>
       </section>

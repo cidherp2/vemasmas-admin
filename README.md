@@ -25,6 +25,8 @@ Abre la URL que indique Vite. Si `.env.local` no contiene `VITE_SUPABASE_URL` y 
 
 En un build de produccion sin configuracion de Supabase, el login falla de forma cerrada y no concede acceso simulado.
 
+La ruta `/register` permite crear cuentas de demo tanto localmente como en el proyecto remoto. En local, el registro simulado crea una sesion solo en el navegador cuando no hay variables de Supabase. Con Supabase configurado, el alta usa Auth; si el proyecto requiere confirmacion de email, la pantalla informa al usuario que debe verificar su correo antes de entrar.
+
 ## Supabase local
 
 El repositorio ya contiene `supabase/config.toml`, `supabase/seed.sql` y la migracion canonica `supabase/migrations/0000_initial_schema.sql`.
@@ -66,6 +68,8 @@ npx supabase gen types typescript --linked > src/types/database.types.ts
 ```
 
 Este flujo sincroniza el esquema y las politicas RLS revisadas. No envia los registros de `seed.sql` al proyecto remoto. La instancia remota requiere que la CLI tenga una sesion autenticada.
+
+Para el demo remoto, habilita `Authentication > Providers > Email` y configura la confirmacion de email segun la experiencia que quieras mostrar. El registro publico esta pensado para este entorno demo; el modelo RLS actual permite que cualquier usuario autenticado gestione el directorio completo.
 
 El primer release permite que cualquier usuario autenticado gestione todos los registros. No hay roles de RR. HH. ni aislamiento por organizacion; esa ampliacion requiere nuevas politicas RLS y una especificacion separada.
 

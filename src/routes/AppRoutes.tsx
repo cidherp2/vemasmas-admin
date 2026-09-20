@@ -7,6 +7,7 @@ import { LoginPage } from "@/pages/LoginPage";
 import { NotFoundPage } from "@/pages/NotFoundPage";
 import { PersonDetailPage } from "@/pages/PersonDetailPage";
 import { PersonsPage } from "@/pages/PersonsPage";
+import { RegisterPage } from "@/pages/RegisterPage";
 import { SettingsPage } from "@/pages/SettingsPage";
 import { ProtectedRoute } from "@/routes/ProtectedRoute";
 import { RouteErrorFallback } from "@/routes/RouteErrorFallback";
@@ -16,6 +17,7 @@ export function AppRoutes(): React.ReactElement {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route element={<ProtectedRoute />}>
           <Route
             element={

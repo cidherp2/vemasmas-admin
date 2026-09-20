@@ -31,6 +31,28 @@ export async function signInWithPassword(
   return data.user;
 }
 
+export interface SignUpResult {
+  user: User | null;
+  session: Session | null;
+}
+
+export async function signUpWithPassword(
+  email: string,
+  password: string,
+): Promise<SignUpResult> {
+  if (!supabase)
+    throw new AppError("CONFIGURATION", "Supabase no está configurado.");
+  const { data, error } = await supabase.auth.signUp({ email, password });
+  if (error) {
+    throw new AppError(
+      "AUTHENTICATION",
+      "No pudimos crear la cuenta con esos datos.",
+      { cause: error },
+    );
+  }
+  return { user: data.user, session: data.session };
+}
+
 export async function signOut(): Promise<void> {
   if (!supabase)
     throw new AppError("CONFIGURATION", "Supabase no está configurado.");

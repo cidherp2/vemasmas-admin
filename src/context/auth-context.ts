@@ -14,6 +14,7 @@ export interface AuthContextValue {
   user: AuthUser | null
   isDevelopmentFallback: boolean
   signIn: (email: string, password: string) => Promise<void>
+  signUp: (email: string, password: string) => Promise<{ requiresEmailConfirmation: boolean }>
   signOut: () => Promise<void>
 }
 

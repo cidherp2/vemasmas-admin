@@ -75,3 +75,27 @@ The system SHALL provide logout from the profile menu, invalidate the active ses
 
 - **WHEN** an authenticated user confirms logout
 - **THEN** the system ends the configured or simulated session, redirects to Login, and prevents the previous private route from being rendered through browser back navigation
+
+### Requirement: Public demo account registration
+
+The system SHALL provide a public registration route for demo users that accepts a valid email address, a password of at least six characters, and a matching password confirmation through Supabase Auth when configured.
+
+#### Scenario: New account is created without email confirmation
+
+- **WHEN** a visitor submits valid registration data and Supabase returns an authenticated session
+- **THEN** the system redirects the new user to the dashboard or intended private destination
+
+#### Scenario: New account requires email confirmation
+
+- **WHEN** a visitor submits valid registration data and Supabase creates the account without an active session because email confirmation is enabled
+- **THEN** the system displays an accessible confirmation message and does not render private content until the user signs in
+
+#### Scenario: Registration data is invalid or duplicated
+
+- **WHEN** a visitor submits a malformed email, a password shorter than six characters, mismatched confirmation, or an email already registered
+- **THEN** the form identifies the invalid field or conflict and does not present registration as successful
+
+#### Scenario: Local fallback registration
+
+- **WHEN** Supabase is absent in a development build and a visitor submits valid registration data
+- **THEN** the system creates only a local simulated session and labels the mode as local demo authentication
