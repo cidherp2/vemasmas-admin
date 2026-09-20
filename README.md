@@ -77,6 +77,16 @@ La instancia remota requiere que la CLI tenga una sesion autenticada. El seed es
 
 Para el demo remoto, habilita `Authentication > Providers > Email` y configura la confirmacion de email segun la experiencia que quieras mostrar. El registro publico esta pensado para este entorno demo; el modelo RLS actual permite que cualquier usuario autenticado gestione el directorio completo.
 
+En Supabase Dashboard configura tambien `Authentication > URL Configuration`:
+
+- Site URL: `https://vemasmas.netlify.app`
+- Redirect URL: `https://vemasmas.netlify.app/login`
+- Redirect URL local opcional: `http://localhost:5173/login`
+
+El registro envia `emailRedirectTo` usando `VITE_SUPABASE_AUTH_REDIRECT_URL` cuando existe y, si no, la URL actual del navegador. En Netlify define `VITE_SUPABASE_AUTH_REDIRECT_URL=https://vemasmas.netlify.app/login` y vuelve a desplegar.
+
+El error `429 over_email_send_rate_limit` significa que se agoto el limite del proveedor de correo integrado de Supabase. Para un demo puedes desactivar temporalmente `Confirm email` en la configuracion de Email Auth, de modo que el registro cree la sesion sin enviar correo. La alternativa para mantener confirmacion es configurar un SMTP propio en Supabase; reintentar desde el frontend no evita ese limite.
+
 El primer release permite que cualquier usuario autenticado gestione todos los registros. No hay roles de RR. HH. ni aislamiento por organizacion; esa ampliacion requiere nuevas politicas RLS y una especificacion separada.
 
 ## Comandos de calidad

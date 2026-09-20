@@ -31,6 +31,16 @@ describe("service errors", () => {
     );
   });
 
+  it("classifies the Auth email rate limit", () => {
+    const error = mapSupabaseError({
+      code: "over_email_send_rate_limit",
+      status: 429,
+      message: "Email rate limit exceeded",
+    });
+    expect(error.code).toBe("RATE_LIMIT");
+    expect(error.message).toMatch(/limitado temporalmente/i);
+  });
+
   it("classifies network failures", () => {
     expect(mapServiceError(new TypeError("Failed to fetch")).code).toBe(
       "NETWORK",

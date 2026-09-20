@@ -1,7 +1,7 @@
 import type { Session, User } from "@supabase/supabase-js";
 
 import { AppError, mapSupabaseError } from "@/lib/errors";
-import { supabase } from "@/services/supabase";
+import { getAuthRedirectUrl, supabase } from "@/services/supabase";
 
 export async function getCurrentSession(): Promise<Session | null> {
   if (!supabase)
@@ -42,13 +42,13 @@ export async function signUpWithPassword(
 ): Promise<SignUpResult> {
   if (!supabase)
     throw new AppError("CONFIGURATION", "Supabase no está configurado.");
-  const { data, error } = await supabase.auth.signUp({ email, password });
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: { emailRedirectTo: getAuthRedirectUrl() },
+  });
   if (error) {
-    throw new AppError(
-      "AUTHENTICATION",
-      "No pudimos crear la cuenta con esos datos.",
-      { cause: error },
-    );
+    throw mapSupabaseError(error);
   }
   return { user: data.user, session: data.session };
 }

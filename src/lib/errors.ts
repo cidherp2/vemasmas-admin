@@ -5,6 +5,7 @@ export type AppErrorCode =
   | "FORBIDDEN"
   | "NETWORK"
   | "NOT_FOUND"
+  | "RATE_LIMIT"
   | "UNKNOWN"
   | "VALIDATION";
 
@@ -61,6 +62,12 @@ export function mapSupabaseError(error: unknown): AppError {
   const status =
     typeof candidate.status === "number" ? candidate.status : undefined;
 
+  if (status === 429 || code === "over_email_send_rate_limit")
+    return new AppError(
+      "RATE_LIMIT",
+      "Supabase ha limitado temporalmente el envío de correos. Espera unos minutos o configura SMTP personalizado para el demo.",
+      { cause: error, status },
+    );
   if (code === "23505")
     return new AppError("DUPLICATE", "El correo ya está registrado.", {
       cause: error,
