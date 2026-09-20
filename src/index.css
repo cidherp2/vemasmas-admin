@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap");
+@import "tailwindcss";
+
+:root {
+  --background: #f5f7f8;
+  --foreground: #162228;
+  --card: #ffffff;
+  --card-foreground: #162228;
+  --popover: #ffffff;
+  --popover-foreground: #162228;
+  --primary: #13795b;
+  --primary-foreground: #ffffff;
+  --secondary: #e4f0eb;
+  --secondary-foreground: #14533f;
+  --muted: #edf1f0;
+  --muted-foreground: #6c7b79;
+  --accent: #f2b84b;
+  --accent-foreground: #3f2d08;
+  --destructive: #c94c4c;
+  --destructive-foreground: #ffffff;
+  --border: #dce5e2;
+  --input: #d5e0dd;
+  --ring: #44a982;
+  --radius: 0.65rem;
+  --sidebar: #102f2b;
+  --sidebar-foreground: #d9ede7;
+  --sidebar-muted: #87aaa1;
+  --sidebar-border: rgba(217, 237, 231, 0.13);
+  --sidebar-active: #1d795e;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: "DM Sans", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dark {
+  --background: #101817;
+  --foreground: #e8f0ed;
+  --card: #172321;
+  --card-foreground: #e8f0ed;
+  --popover: #1d2a27;
+  --popover-foreground: #e8f0ed;
+  --primary: #5bc497;
+  --primary-foreground: #082018;
+  --secondary: #203e35;
+  --secondary-foreground: #c8ebdc;
+  --muted: #1c2a28;
+  --muted-foreground: #9ab0aa;
+  --accent: #e6ad42;
+  --accent-foreground: #352506;
+  --destructive: #e27b7b;
+  --destructive-foreground: #301010;
+  --border: #2e423d;
+  --input: #385049;
+  --ring: #64d4a3;
+  --sidebar: #0b2522;
+  --sidebar-foreground: #e3f2ec;
+  --sidebar-muted: #9abdb2;
+  --sidebar-border: rgba(227, 242, 236, 0.14);
+  --sidebar-active: #276f5a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --font-sans: "DM Sans", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  border-color: var(--border);
+}
+
+html {
+  min-width: 320px;
+  background: var(--background);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--background);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.focus-ring {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.focus-ring:focus-visible {
+  outline-color: var(--ring);
+}
