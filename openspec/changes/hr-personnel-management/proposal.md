@@ -13,6 +13,7 @@ The repository is currently an unmodified React/Vite starter and has no authenti
 - Establish the Supabase CLI workflow, initial `persons` schema, RLS policy model, generated TypeScript database contract, and frontend service boundaries.
 - Add a deterministic local seed with synthetic personnel records and document schema-only synchronization to the approved remote Supabase project.
 - Add public demo account registration for local and remote Supabase Auth environments.
+- Load the approved synthetic demo seed into the remote demo project through an explicit data command after schema synchronization.
 - Add the dependency and folder structure required for React Router, Tailwind CSS, Shadcn UI, Lucide icons, React Hook Form, and schema validation.
 
 ## Capabilities

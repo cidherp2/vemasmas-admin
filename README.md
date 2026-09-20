@@ -67,7 +67,13 @@ npx supabase db push
 npx supabase gen types typescript --linked > src/types/database.types.ts
 ```
 
-Este flujo sincroniza el esquema y las politicas RLS revisadas. No envia los registros de `seed.sql` al proyecto remoto. La instancia remota requiere que la CLI tenga una sesion autenticada.
+Este flujo sincroniza el esquema y las politicas RLS revisadas. `db push` no envia los registros de `seed.sql` automaticamente. Para cargar los datos demo de forma explicita en el proyecto remoto aprobado, ejecuta despues:
+
+```bash
+npx supabase db query --linked --file supabase/seed.sql
+```
+
+La instancia remota requiere que la CLI tenga una sesion autenticada. El seed es repetible y actualiza las filas demo por correo; no elimina otros registros.
 
 Para el demo remoto, habilita `Authentication > Providers > Email` y configura la confirmacion de email segun la experiencia que quieras mostrar. El registro publico esta pensado para este entorno demo; el modelo RLS actual permite que cualquier usuario autenticado gestione el directorio completo.
 

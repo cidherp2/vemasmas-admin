@@ -55,6 +55,7 @@
 
 - [x] 8.1 Add 30 deterministic synthetic personnel records to `supabase/seed.sql`; verify `npx supabase db reset` loads the records with valid statuses and the local directory can display them.
 - [x] 8.2 Link the approved Supabase project and push only reviewed migrations/RLS; verify the remote schema matches the local migration set, generated linked types compile, and no local seed rows are pushed automatically.
+- [x] 8.3 Load the approved synthetic seed explicitly into the remote demo project; verify the remote `persons` table contains 30 demo records without changing migration history or deleting other data.
 
 ## 9. Registro publico para demo
 

@@ -212,9 +212,9 @@ The command-generated timestamped migration name is normally preferred by Supaba
 
 Keep `supabase/seed.sql` as a local-only, deterministic dataset of 30 synthetic `persons` records. Fixed UUIDs, unique demo emails, valid ten-digit phones, varied roles, and both allowed statuses make `supabase db reset` reproducible and useful for manually exercising search, filters, detail, edit, and delete flows. The seed uses an email conflict update so rerunning it is safe, but it is not production data.
 
-The remote delivery boundary is schema-only. Link the approved project with `supabase link --project-ref "$SUPABASE_PROJECT_REF"`, review migration status and remote drift, then run `supabase db push`. `db push` applies migrations and RLS policies; it does not apply `seed.sql`. Remote sample data, if ever desired, requires a separately approved data import and is outside this scope.
+The remote delivery boundary separates schema from data. Link the approved project with `supabase link --project-ref "$SUPABASE_PROJECT_REF"`, review migration status and remote drift, then run `supabase db push`. `db push` applies migrations and RLS policies; it does not apply `seed.sql`. For this isolated demo, the approved sample data can be loaded explicitly with `supabase db query --linked --file supabase/seed.sql` after confirming the target project, and the operation is repeatable through the email conflict update.
 
-Alternative considered: inserting sample rows through a migration. Rejected because demo data would become production schema history and would be difficult to remove safely.
+Alternative considered: inserting sample rows through a migration or making `db push` execute them implicitly. Rejected because demo data would become production schema history or could be deployed accidentally to an unintended environment.
 
 ### 9. Generated database type contract
 
