@@ -30,14 +30,14 @@
 
 ## 5. Person data boundary
 
-- [ ] 5.1 Implement typed person models, Zod validation, service methods for list/get/create/update/delete, and error classification for duplicate email, network, HTTP, auth, RLS, and not-found cases; verify unit tests cover each mapped error category.
+- [x] 5.1 Implement typed person models, Zod validation, service methods for list/get/create/update/delete, and error classification for duplicate email, network, HTTP, auth, RLS, and not-found cases; verify unit tests cover each mapped error category.
 - [x] 5.2 Implement `usePersons` with query loading, retry, mutation invalidation, and duplicate-submission protection; verify successful mutations invalidate the list/detail data only after the service confirms success.
 - [x] 5.3 Implement the responsive personnel table with required columns, stable loading skeletons, empty state, retry state, and detail navigation; verify successful, empty, loading, and read-error states are distinguishable.
 - [x] 5.4 Implement real-time name/email search and combinable status filter with a clear-filters action; verify matching is case-insensitive and no-results state appears without a page reload.
 
 ## 6. Person workflows and forms
 
-- [ ] 6.1 Implement reusable `PersonForm` with create/edit defaults, required fields, email validation, exactly ten numeric phone digits, optional role, status, and inline messages; verify invalid submissions do not call the persistence service.
+- [x] 6.1 Implement reusable `PersonForm` with create/edit defaults, required fields, email validation, exactly ten numeric phone digits, optional role, status, and inline messages; verify invalid submissions do not call the persistence service.
 - [x] 6.2 Add create flow in a responsive Dialog or narrow-screen full-width surface; verify a successful create displays the new person, defaults status to active, and reports success.
 - [x] 6.3 Add edit flow prefilled from the selected person; verify a successful update refreshes the table and detail view while a failed update preserves entered values.
 - [x] 6.4 Add person detail page/card with identifier and creation timestamp plus edit and delete actions; verify a missing person renders the not-found state with return navigation.
@@ -46,7 +46,7 @@
 
 ## 7. Verification and delivery
 
-- [ ] 7.1 Add component and route tests for login, protected navigation, fallback gating, shell responsiveness, and theme behavior; verify tests query accessible roles, labels, and text.
-- [ ] 7.2 Add form and person workflow tests using mocked service responses for validation, search/filter, create, edit, duplicate email, delete confirmation, loading, empty, and error states; verify the focused test suite passes.
+- [x] 7.1 Add component and route tests for login, protected navigation, fallback gating, shell responsiveness, and theme behavior; verify tests query accessible roles, labels, and text.
+- [x] 7.2 Add form and person workflow tests using mocked service responses for validation, search/filter, create, edit, duplicate email, delete confirmation, loading, empty, and error states; verify the focused test suite passes.
 - [ ] 7.3 Run local Supabase migration, type generation, lint, TypeScript build, and test commands from a clean checkout; verify all commands pass and generated types match the applied schema.
 - [ ] 7.4 Document the local and linked Supabase workflow, environment variables, migration filename decision, fallback limitations, and remote deployment guardrails; verify the README lets a new developer reproduce the local setup without secrets.
