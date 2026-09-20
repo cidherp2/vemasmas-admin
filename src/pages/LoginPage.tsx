@@ -187,7 +187,10 @@ export function LoginPage(): React.ReactElement {
           </p>
           <p className="mt-4 text-center text-sm text-muted-foreground">
             ¿No tienes cuenta?{" "}
-            <Link className="font-semibold text-primary hover:underline" to="/register">
+            <Link
+              className="font-semibold text-primary hover:underline"
+              to="/register"
+            >
               Crear cuenta de demo
             </Link>
           </p>

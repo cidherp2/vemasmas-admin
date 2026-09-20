@@ -23,9 +23,16 @@ import { RegisterPage } from "@/pages/RegisterPage";
 describe("RegisterPage", () => {
   it("submits valid registration data", async () => {
     const user = userEvent.setup();
-    render(<MemoryRouter><RegisterPage /></MemoryRouter>);
+    render(
+      <MemoryRouter>
+        <RegisterPage />
+      </MemoryRouter>,
+    );
 
-    await user.type(screen.getByLabelText("Correo electrónico"), "demo@empresa.com");
+    await user.type(
+      screen.getByLabelText("Correo electrónico"),
+      "demo@empresa.com",
+    );
     await user.type(screen.getByLabelText("Contraseña"), "secreto");
     await user.type(screen.getByLabelText("Confirmar contraseña"), "secreto");
     await user.click(screen.getByRole("button", { name: "Crear cuenta" }));
@@ -36,9 +43,16 @@ describe("RegisterPage", () => {
   it("shows confirmation feedback when Auth requires email verification", async () => {
     const user = userEvent.setup();
     auth.signUp.mockResolvedValueOnce({ requiresEmailConfirmation: true });
-    render(<MemoryRouter><RegisterPage /></MemoryRouter>);
+    render(
+      <MemoryRouter>
+        <RegisterPage />
+      </MemoryRouter>,
+    );
 
-    await user.type(screen.getByLabelText("Correo electrónico"), "confirm@empresa.com");
+    await user.type(
+      screen.getByLabelText("Correo electrónico"),
+      "confirm@empresa.com",
+    );
     await user.type(screen.getByLabelText("Contraseña"), "secreto");
     await user.type(screen.getByLabelText("Confirmar contraseña"), "secreto");
     await user.click(screen.getByRole("button", { name: "Crear cuenta" }));
@@ -49,14 +63,23 @@ describe("RegisterPage", () => {
   it("blocks mismatched passwords before calling Auth", async () => {
     const user = userEvent.setup();
     auth.signUp.mockClear();
-    render(<MemoryRouter><RegisterPage /></MemoryRouter>);
+    render(
+      <MemoryRouter>
+        <RegisterPage />
+      </MemoryRouter>,
+    );
 
-    await user.type(screen.getByLabelText("Correo electrónico"), "mismatch@empresa.com");
+    await user.type(
+      screen.getByLabelText("Correo electrónico"),
+      "mismatch@empresa.com",
+    );
     await user.type(screen.getByLabelText("Contraseña"), "secreto");
     await user.type(screen.getByLabelText("Confirmar contraseña"), "distinta");
     await user.click(screen.getByRole("button", { name: "Crear cuenta" }));
 
-    expect(await screen.findByText("Las contraseñas no coinciden.")).toBeInTheDocument();
+    expect(
+      await screen.findByText("Las contraseñas no coinciden."),
+    ).toBeInTheDocument();
     expect(auth.signUp).not.toHaveBeenCalled();
   });
 });
